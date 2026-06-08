@@ -1,0 +1,25 @@
+.venv/
+__pycache__/
+*.pyc
+*.py[cod]
+
+.env
+
+.pytest_cache/
+
+# VS Code
+.vscode/
+
+.idea/
+
+dist/
+build/
+
+# Logs
+logs/
+*.log
+
+.gitignore
+
+# Virtual Env
+.venv/

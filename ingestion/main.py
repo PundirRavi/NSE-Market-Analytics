@@ -1,5 +1,36 @@
-from ingestion.logger import logger
-from ingestion.config import ENVIRONMENT
+from ingestion.logging_config import configure_logging
 
-logger.info(f"Environment: {ENVIRONMENT}")
-logger.info("Project setup successful")
+configure_logging()
+
+from ingestion.logger import logger
+
+from ingestion.clients.nse_client import NSEClient
+
+from ingestion.exceptions.api_exceptions import APIError
+
+
+def main():
+
+    try:
+
+        client = NSEClient()
+
+        data = client.get_market_status()
+
+        logger.info("Market status retrieved successfully | markets=%s",
+                len(data.marketState)
+                )
+
+        for market in data.marketState:
+            logger.info(
+                    "%s | %s ",
+                    market.market,
+                    market.marketStatus
+                    )
+    except APIError as exc:
+
+        logger.error(f"API Failed: {exc}")
+
+
+if __name__ == "__main__":
+    main()
