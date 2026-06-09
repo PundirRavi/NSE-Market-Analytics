@@ -6,7 +6,7 @@ from pydantic import BaseModel
 class MarketState(BaseModel):
     market: str
     marketStatus: str
-    tradeDate: str
+    tradeDate: Optional[str] = None
 
     index: Optional[str] = None
     marketStatusMessage: Optional[str] = None

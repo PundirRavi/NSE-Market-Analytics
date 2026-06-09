@@ -3,8 +3,8 @@ import requests
 from requests.adapters import HTTPAdapter
 from urllib3.util.retry import Retry
 
-from ingestion.logger import logger
-from ingestion.exceptions.api_exceptions import (
+from core.logger import logger
+from infra.exceptions.api_exceptions import (
     APITimeoutError,
     APIConnectionError
 )
