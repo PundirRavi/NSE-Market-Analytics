@@ -1,12 +1,12 @@
-from ingestion.logging_config import configure_logging
+from core.logging_config import configure_logging
 
 configure_logging()
 
-from ingestion.logger import logger
+from core.logger import logger
 
 from ingestion.clients.nse_client import NSEClient
 
-from ingestion.exceptions.api_exceptions import APIError
+from infra.exceptions.api_exceptions import APIError
 
 
 def main():

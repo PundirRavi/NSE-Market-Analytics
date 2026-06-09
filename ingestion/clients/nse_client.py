@@ -1,6 +1,6 @@
 from ingestion.clients.base_client import BaseClient
 
-from ingestion.models.market_status import MarketStatusResponse
+from domain.models.market_status import MarketStatusResponse
 
 class NSEClient(BaseClient):
 
