@@ -6,3 +6,4 @@ pytest
 black
 ruff
 tenacity
+azure-storage-blob
