@@ -7,3 +7,4 @@ black
 ruff
 tenacity
 azure-storage-blob
+pydantic-settings-2.14.1

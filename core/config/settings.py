@@ -1,46 +1,55 @@
-import os
-from pydantic import BaseModel
+import logging
+from functools import lru_cache
+from pydantic_settings import BaseSettings, SettingsConfigDict
 
-# load .env file
-from dotenv import load_dotenv
+logger = logging.getLogger(__name__)
 
-load_dotenv()
 
-class Settings(BaseModel):
-    ENV: str
-    ADLS_CONNECTION_STRING: str
+class Settings(BaseSettings):
+    """
+    Central application configuration loaded from environment variables.
+    """
+    # =====================
+    # Core App Settings
+    # =====================
+    ENV: str = "dev"
+    APP_NAME: str = "elt-pipeline"
+    DEBUG: bool = False
+
+    # =====================
+    # Azure / Storage
+    # =====================
+    ADLS_CONNECTION_STRING: str = ""
     BRONZE_CONTAINER: str = "bronze"
+    SILVER_CONTAINER: str = "silver"
+    GOLD_CONTAINER: str = "gold"
 
+    # =====================
+    # Optional Settings
+    # =====================
+    LOG_LEVEL: str = "INFO"
 
-def get_settings():
-
-    env = os.getenv("ENV")
-
-    if env == "dev":
-        adls_conn = os.getenv("ADLS_CONNECTION_STRING")
-
-        if not adls_conn:
-            raise ValueError(
-                "ADLS_CONNECTION_STRING is missing from environment"
-        )
-
-        if "AccountName=" not in adls_conn:
-            raise ValueError(
-            "ADLS_CONNECTION_STRING appears malformed"
-        )
-        return Settings(
-        ENV=env,
-        ADLS_CONNECTION_STRING=adls_conn,
-        BRONZE_CONTAINER=os.getenv("BRONZE_CONTAINER", "bronze")
+    # =====================
+    # Pydantic Config
+    # =====================
+    model_config = SettingsConfigDict(
+        env_file=".env",
+        env_file_encoding="utf-8",
+        case_sensitive=True,
+        extra="ignore"
     )
 
-    elif env == "stage":
-        return Settings(
-            ENV="stage",
-            ADLS_CONNECTION_STRING="stage_conn",
-        )
 
-    return Settings(
-        ENV="prod",
-        ADLS_CONNECTION_STRING="prod_conn",
-    )
+@lru_cache
+def get_settings() -> Settings:
+    """
+    Singleton settings loader.
+    Ensures settings are loaded only once per application lifecycle.
+    """
+    try:
+        settings = Settings()
+        logger.info("Settings loaded successfully for ENV=%s", settings.ENV)
+        return settings
+    except Exception as e:
+        logger.exception("Failed to load application settings")
+        raise
