@@ -1,23 +1,38 @@
-.venv/
-__pycache__/
-*.pyc
-*.py[cod]
-
+# Environment Variables
 .env
-*.env
+
+# Virtual Environment
+.venv/
+venv/
+
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+
+# Pytest
 .pytest_cache/
 
-# VS Code
-.vscode/
-
-.idea/
-
-dist/
-build/
+# Coverage
+.coverage
+htmlcov/
 
 # Logs
 logs/
 *.log
 
-# Virtual Env
-.venv/
+# VS Code
+.vscode/
+
+# Build
+build/
+dist/
+*.egg-info/
+
+# Jupyter
+.ipynb_checkpoints/
+
+# OS Files
+.DS_Store
+Thumbs.db
