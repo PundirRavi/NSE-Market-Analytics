@@ -1,0 +1,18 @@
+nse:
+  base_url: "https://www.nseindia.com"
+
+  timeout: 10
+
+  headers:
+    user-agent: "Mozilla/5.0"
+    accept: "application/json"
+
+  datasets:
+
+    quotes:
+      endpoint: "/api/liveEquity-derivatives"
+      poll_interval_sec: 5
+
+    market_status:
+      endpoint: "/api/marketStatus"
+      poll_interval_sec: 60

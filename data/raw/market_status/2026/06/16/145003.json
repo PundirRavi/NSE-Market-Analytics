@@ -1,0 +1,60 @@
+{
+  "event_name": "market_status",
+  "event_time": "2026-06-16T14:50:03.863054",
+  "schema_version": "1.0",
+  "source": "nse",
+  "payload": {
+    "marketState": [
+      {
+        "market": "Capital Market",
+        "marketStatus": "Open",
+        "tradeDate": "16-Jun-2026 14:47",
+        "index": "NIFTY 50",
+        "last": 23977.3,
+        "variation": 123.39999999999782,
+        "percentChange": 0.52,
+        "marketStatusMessage": "Normal Market is Open"
+      },
+      {
+        "market": "Currency",
+        "marketStatus": "Open",
+        "tradeDate": "16-Jun-2026",
+        "index": "",
+        "last": "",
+        "variation": "",
+        "percentChange": "",
+        "marketStatusMessage": "Market is Open"
+      },
+      {
+        "market": "Commodity",
+        "marketStatus": "Open",
+        "tradeDate": "16-Jun-2026",
+        "index": "",
+        "last": "",
+        "variation": "",
+        "percentChange": "",
+        "marketStatusMessage": "Market is Open"
+      },
+      {
+        "market": "Debt",
+        "marketStatus": "Open",
+        "tradeDate": "16-Jun-2026",
+        "index": "",
+        "last": "",
+        "variation": "",
+        "percentChange": "",
+        "marketStatusMessage": "Market is Open"
+      },
+      {
+        "market": "currencyfuture",
+        "marketStatus": "Open",
+        "tradeDate": "16-Jun-2026",
+        "index": "",
+        "last": "94.6050",
+        "variation": "",
+        "percentChange": "",
+        "marketStatusMessage": "Market is Open"
+      }
+    ]
+  }
+}
