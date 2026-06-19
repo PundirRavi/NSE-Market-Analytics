@@ -1,0 +1,9 @@
+topics:
+
+  - name: market-status
+    partitions: 1
+    replication_factor: 1
+
+  - name: option-chain
+    partitions: 3
+    replication_factor: 1

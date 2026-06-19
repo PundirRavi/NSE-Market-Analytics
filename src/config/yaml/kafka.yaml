@@ -1,0 +1,18 @@
+bootstrap_servers:
+  - localhost:9092
+
+client_id: nse-trading-platform
+
+security_protocol: PLAINTEXT
+
+producer:
+  acks: all
+  linger_ms: 20
+  batch_size: 32768
+  compression_type: snappy
+  retries: 5
+  enable_idempotence: true
+
+topics:
+  market_status: market-status
+  option_chain: option-chain

@@ -8,3 +8,4 @@ ruff
 tenacity
 azure-storage-blob
 pydantic-settings-2.14.1
+confluent-kafka==2.11.1

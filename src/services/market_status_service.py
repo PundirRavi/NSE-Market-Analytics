@@ -1,7 +1,6 @@
 
 from src.utils.logger import get_logger
 
-
 class MarketStatusService:
 
     def __init__(self, client, cache) -> None:
@@ -12,7 +11,7 @@ class MarketStatusService:
     def fetch_market_status(self):
         self.logger.info("Fetching market status data")
 
-        cached = self.cache.get()
+        cached = self.cache.get("market_status")
 
         if cached is not None:
 
@@ -28,6 +27,14 @@ class MarketStatusService:
 
         response = self.client.get_market_status()
 
-        self.cache.set(response)
+        self.logger.info(
+                    "Retrieved %s market states",
+                    len(response.marketState)
+                )
+        
+        self.cache.set(
+            "market_status",
+            response
+        )
 
         return response
