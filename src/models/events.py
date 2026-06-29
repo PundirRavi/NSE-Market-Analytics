@@ -1,23 +1,38 @@
 from pydantic import BaseModel, Field
 from datetime import datetime
+from typing import Any 
+from uuid import UUID
 
-
-class MarketStatusEvent(BaseModel):
+class Event(BaseModel):
     """
-    Standard event wrapper for streaming systems.
+    Standard event envelope published to Kafka.
 
-    WHY this exists:
-    - Adds metadata around raw payload
-    - Enables schema evolution
-    - Supports Kafka consumers downstream
+    Every dataset (market status, option chain, quotes, etc.)
+    is wrapped inside this model.
     """
+    event_id: UUID = Field(
+        description="Unique identifier for the event."
+    )
 
-    event_name: str = "market_status"
+    event_time: datetime = Field(
+        description="UTC timestamp when the event was created."
+    )
 
-    # IMPORTANT: store as ISO string, not datetime object
-    event_time: str = Field(default_factory=lambda: datetime.now().isoformat())
-    schema_version: str = "1.0"
+    source: str = Field(
+        description="Source system generating the event."
+    )
 
-    source: str = "nse"
+    dataset: str = Field(
+        description="Dataset name."
+    )
 
-    payload: dict
+    symbol: str | None = Field(
+        default=None,
+        description="Trading symbol if applicable."
+    )
+
+    payload: Any = Field(
+        description="Validated dataset payload."
+    )
+
+    

@@ -8,15 +8,13 @@ from src.utils.logger import get_logger
 class BaseClient:
     def __init__(
         self,
+        session: Session,
         base_url: str,
-        timeout: int,
-        headers: dict[str, str],
+        timeout: int
     ) -> None:
+        self.session = session
         self.base_url = base_url
         self.timeout = timeout
-
-        self.session = Session()
-        self.session.headers.update(headers)
 
         self.logger = get_logger(self.__class__.__name__)
 
@@ -34,6 +32,14 @@ class BaseClient:
                 timeout=self.timeout,
             )
 
+            self.logger.info(
+                "Status Code: %s",
+                response.status_code
+            )
+
+            print(response.text[:500])
+            
+
             response.raise_for_status()
 
             self.logger.info(
@@ -44,6 +50,7 @@ class BaseClient:
             return response.json()
 
         except RequestException as exc:
+
             self.logger.exception(
                 "Request failed: %s",
                 url

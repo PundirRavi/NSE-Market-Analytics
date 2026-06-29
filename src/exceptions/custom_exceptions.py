@@ -19,3 +19,15 @@ class NotificationException(NSEPlatformException):
 
 class ClientException(NSEPlatformException):
     """Raised when an external client operation fails."""
+
+class EventCreationException(Exception):
+    "Raised when Event Exception occured "
+
+class KafkaProducerException(Exception):
+    """Raised when Kafka publishing fails."""
+
+class SerializationException(Exception):
+    """Raised when an event cannot be serialized."""
+
+class StreamingException(Exception):
+    """Raised when and Streaming exception occured"""

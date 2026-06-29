@@ -1,18 +1,18 @@
-nse:
-  base_url: "https://www.nseindia.com"
+base_url: "https://www.nseindia.com/"
+timeout: 30
 
-  timeout: 10
+headers:
+  User-Agent: "Mozilla"
 
-  headers:
-    user-agent: "Mozilla/5.0"
-    accept: "application/json"
+datasets:
+  market_status:
+    endpoint: "api/marketStatus"
+    poll_interval_sec: 10
 
-  datasets:
-
-    quotes:
-      endpoint: "/api/liveEquity-derivatives"
-      poll_interval_sec: 5
-
-    market_status:
-      endpoint: "/api/marketStatus"
-      poll_interval_sec: 60
+  option_chain:
+    endpoint: "/option/chain"
+    poll_interval_sec: 30
+    symbols:
+      - NIFTY
+      - BANKNIFTY
+      - FINNIFTY
