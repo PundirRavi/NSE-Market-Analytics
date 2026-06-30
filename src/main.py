@@ -99,13 +99,13 @@ def build_application():
 
     option_service = OptionChainService(
         option_client,
-        cache,
-        expiry_service=str
+        cache
     )
 
     option_job = OptionChainJob(
-        option_service,
-        symbols=config.nse.datasets.option_chain.symbols
+        service=option_service,
+        symbols=config.nse.datasets.option_chain.symbols,
+        producer=producer
     )
 
 
@@ -117,21 +117,21 @@ def main():
     market_job, option_job, kafka_producer = build_application()
 
     try:
-        #market status job execution
+        """#market status job execution
         market_result = market_job.run()
 
         if market_result is not None:
             print(market_result.model_dump_json(indent=2))
         else:
-            print("No result returned from  Market Status Job")
+            print("No result returned from  Market Status Job")"""
 
-        '''#option chain job execution
+        #option chain job execution
         option_result = option_job.run()
 
         if option_result is not None:
             print(json.dumps(option_result, indent=2))
         else:
-            print("No result returned from  option chain Job") '''
+            print("No result returned from  option chain Job") 
 
     finally:
         # ✅ flush Kafka before shutdown

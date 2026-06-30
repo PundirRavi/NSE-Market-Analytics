@@ -18,17 +18,23 @@ class BaseClient:
 
         self.logger = get_logger(self.__class__.__name__)
 
-    def get(self, endpoint: str) -> dict:
+    def get(
+            self,
+            endpoint: str,
+            params: dict | None = None,
+    ) -> dict:
+        
         url = f"{self.base_url}{endpoint}"
 
         try:
             self.logger.info(
-                "Sending GET request to %s",
-                url
+                "Sending GET request to %s with parameters %s",
+                url,params
             )
 
             response = self.session.get(
                 url,
+                params=params,
                 timeout=self.timeout,
             )
 

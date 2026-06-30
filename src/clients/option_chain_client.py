@@ -33,8 +33,7 @@ class OptionChainClient(BaseClient):
 
     def get_option_chain(
             self, 
-            symbol: str,
-            expiry: str
+            symbol: str
         ) -> OptionChainResponse:
         
         self.logger.info(
@@ -46,8 +45,7 @@ class OptionChainClient(BaseClient):
             endpoint=self.endpoint,
             params={
             "type": "Indices",
-            "symbol": symbol,
-            "expiry": expiry,
+            "symbol": symbol
     },
         )
 

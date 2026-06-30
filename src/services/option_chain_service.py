@@ -1,17 +1,15 @@
 from src.utils.logger import get_logger
-
+from src.models.option_chain import OptionChainResponse
 
 class OptionChainService:
 
     def __init__(
         self,
         client,
-        cache,
-        expiry_service,
+        cache
     ):
         self.client = client
         self.cache = cache
-        self.expiry_service=expiry_service
 
         self.logger = get_logger(
             self.__class__.__name__
@@ -20,12 +18,13 @@ class OptionChainService:
     def fetch_option_chain(
         self,
         symbol: str
-    ):
+    ) -> OptionChainResponse:
         
-        expiry = self.expiry_service.get_current_expiry(symbol)
+        #removing expiry logic as of now from here
+        #expiry = self.expiry_service.get_current_expiry(symbol)
 
         cache_key = (
-            f"option_chain:{symbol}:{expiry}"
+            f"option_chain:{symbol}"
         )
 
         cached = self.cache.get(
@@ -39,7 +38,7 @@ class OptionChainService:
                 symbol
             )
 
-            return cached
+            return OptionChainResponse.model_validate(cached)
 
         self.logger.info(
             "Fetching option chain from NSE for %s",
@@ -52,9 +51,11 @@ class OptionChainService:
             )
         )
 
+        parsed = OptionChainResponse.model_validate(response)
+
         self.cache.set(
             cache_key,
-            response
+            parsed.model_dump()
         )
 
-        return response
+        return parsed
