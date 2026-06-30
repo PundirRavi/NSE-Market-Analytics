@@ -10,7 +10,7 @@ datasets:
     poll_interval_sec: 10
 
   option_chain:
-    endpoint: "/option/chain"
+    endpoint: "api/option-chain-v3"
     poll_interval_sec: 30
     symbols:
       - NIFTY
